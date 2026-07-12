@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ site.name }} - {{ site.description }}{% endblock %}</title>
+    <title>{% block title %}{{ site.name }} - Expert Career Advice{% endblock %}</title>
     <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+    
+    <!-- SEO Optimization -->
+    <link rel="alternate" href="{{ site.url }}/" hreflang="en-us" />
+    <link rel="canonical" href="{{ site.url }}{% block canonical %}/{% endblock %}" />
     
     <!-- PWA / Manifest -->
     <link rel="manifest" href="/manifest.json">
