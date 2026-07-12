@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Disclaimer | {{ site.name }}{% endblock %}
+
+{% block content %}
+<div class="container section page-content">
+    <h1>Disclaimer</h1>
+    <p>Last updated: {{ now.strftime('%B %d, %Y') }}</p>
+    
+    <p>The information provided by {{ site.name }} ("we," "us," or "our") on {{ site.url }} is for general informational and educational purposes only.</p>
+    
+    <h2>Professional Advice</h2>
+    <p>The information on this site is not intended as, and shall not be understood or construed as, professional career or legal advice. While the employees and/or owners of the Company are professionals and the information provided on this Website relates to issues within the Company’s area of professionalism, the information contained on this Website is not a substitute for advice from a professional who is aware of the facts and circumstances of your individual situation.</p>
+    
+    <h2>Earnings Disclaimer</h2>
+    <p>Any earnings or income statements, or earnings or income examples, are only estimates of what we think you could earn. There is no assurance you'll do as well. If you rely upon our figures, you must accept the risk of not doing as well.</p>
+</div>
+{% endblock %}

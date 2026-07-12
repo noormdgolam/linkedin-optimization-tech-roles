@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Search | {{ site.name }}{% endblock %}
+
+{% block content %}
+<div class="container section page-content">
+    <h1>Search Articles</h1>
+    
+    <div class="search-container">
+        <form id="search-form" class="search-form" onsubmit="event.preventDefault(); performSearch();">
+            <input type="text" id="search-input" placeholder="Search for LinkedIn optimization, networking, interviews..." required>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    
+    <div id="search-results" class="search-results article-grid" style="margin-top:2rem;">
+        <!-- Results injected here by JS -->
+    </div>
+</div>
+
+<script>
+    let searchIndex = [];
+    
+    // Load search index
+    fetch('/search_index.json')
+        .then(response => response.json())
+        .then(data => {
+            searchIndex = data;
+            // Check if there's a query param on load
+            const urlParams = new URLSearchParams(window.location.search);
+            const q = urlParams.get('q');
+            if(q) {
+                document.getElementById('search-input').value = q;
+                performSearch();
+            }
+        });
+
+    function performSearch() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const resultsContainer = document.getElementById('search-results');
+        
+        // Update URL
+        const url = new URL(window.location);
+        url.searchParams.set('q', query);
+        window.history.pushState({}, '', url);
+        
+        if(!query) {
+            resultsContainer.innerHTML = '';
+            return;
+        }
+        
+        const results = searchIndex.filter(item => 
+            item.title.toLowerCase().includes(query) || 
+            item.description.toLowerCase().includes(query)
+        );
+        
+        if(results.length === 0) {
+            resultsContainer.innerHTML = '<p>No results found for "'+query+'". Try another keyword.</p>';
+            return;
+        }
+        
+        let html = '';
+        results.forEach(item => {
+            html += `
+            <article class="card article-card">
+                <div class="card-content">
+                    <span class="category-tag">${item.category}</span>
+                    <h3><a href="${item.url}">${item.title}</a></h3>
+                    <p>${item.description}</p>
+                </div>
+            </article>`;
+        });
+        resultsContainer.innerHTML = html;
+    }
+</script>
+{% endblock %}

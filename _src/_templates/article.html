@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} | {{ site.name }}{% endblock %}
+{% block description %}{{ article.description }}{% endblock %}
+{% block og_title %}{{ article.title }}{% endblock %}
+{% block og_description %}{{ article.description }}{% endblock %}
+{% block og_url %}/{{ article.slug }}/{% endblock %}
+{% block og_type %}article{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ article.title }}",
+  "description": "{{ article.description }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.name }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/logo.png"
+    }
+  },
+  "datePublished": "{{ article.date }}"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Home",
+    "item": "{{ site.url }}"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "{{ article.category }}",
+    "item": "{{ site.url }}/{{ article.category | lower | replace(' ', '-') }}/"
+  },{
+    "@type": "ListItem",
+    "position": 3,
+    "name": "{{ article.title }}"
+  }]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container layout-with-sidebar">
+    <div class="main-content">
+        <nav class="breadcrumbs">
+            <a href="/">Home</a> &raquo; <a href="/{{ article.category | lower | replace(' ', '-') }}/">{{ article.category }}</a> &raquo; <span>{{ article.title }}</span>
+        </nav>
+        
+        <article class="single-article">
+            <header class="article-header">
+                <h1>{{ article.title }}</h1>
+                <div class="article-meta">
+                    <span class="author">By {{ site.author }}</span> | <span class="date">Updated: {{ article.date }}</span>
+                </div>
+                
+                <div class="social-share">
+                    <span>Share:</span>
+                    <a href="https://twitter.com/intent/tweet?url={{ site.url }}/{{ article.slug }}/&text={{ article.title | urlencode }}" target="_blank" class="share-btn twitter">X</a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}/{{ article.slug }}/&title={{ article.title | urlencode }}" target="_blank" class="share-btn linkedin">LinkedIn</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}/{{ article.slug }}/" target="_blank" class="share-btn facebook">Facebook</a>
+                </div>
+            </header>
+            
+            <div class="article-body">
+                <!-- Convert markdown to HTML -->
+                {{ article.content_md | markdown | safe }}
+            </div>
+            
+            <!-- AdSense: End of Article -->
+            <div class="ad-slot ad-multiplex">
+                <p class="ad-label">Advertisement</p>
+                <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+            
+            <div class="author-box">
+                <h3>About {{ site.author }}</h3>
+                <p>The Tech Hub Editorial Team consists of industry veterans dedicated to helping tech professionals optimize their online presence and advance their careers.</p>
+            </div>
+            
+            <section class="related-articles">
+                <h3>Related Articles</h3>
+                <div class="article-grid">
+                    {% set count = 0 %}
+                    {% for a in articles %}
+                        {% if a.category == article.category and a.slug != article.slug and count < 2 %}
+                            <article class="card related-card">
+                                <h4><a href="/{{ a.slug }}/">{{ a.title }}</a></h4>
+                            </article>
+                            {% set count = count + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </section>
+        </article>
+    </div>
+    
+    <aside class="sidebar">
+        <!-- AdSense: Sticky Sidebar -->
+        <div class="ad-slot ad-sidebar sticky">
+            <p class="ad-label">Advertisement</p>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </aside>
+</div>
+
+<script>
+    // Programmatically inject mid-article ad after 2nd H2
+    document.addEventListener("DOMContentLoaded", function() {
+        var h2s = document.querySelectorAll('.article-body h2');
+        if(h2s.length >= 2) {
+            var target = h2s[1];
+            var adHtml = '<div class="ad-slot ad-mid-article" style="margin:2rem 0;"><p class="ad-label">Advertisement</p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins></div>';
+            target.insertAdjacentHTML('beforebegin', adHtml);
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+            
+            // Also inject newsletter block
+            var newsletterHtml = '<div class="newsletter-inline"><h3>Get more tips in your inbox</h3><form onsubmit="event.preventDefault(); alert(\'Newsletter integration placeholder.\');"><input type="email" placeholder="Your Email Address" required><button class="btn btn-primary" type="submit">Subscribe</button></form></div>';
+            target.insertAdjacentHTML('afterend', newsletterHtml);
+        }
+    });
+</script>
+{% endblock %}

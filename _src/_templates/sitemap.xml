@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{ site.url }}/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  {% for page in pages %}
+  {% if page != 'index' and page != '404' %}
+  <url>
+    <loc>{{ site.url }}/{{ page }}.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  {% endif %}
+  {% endfor %}
+  {% for cat_slug in categories.keys() %}
+  <url>
+    <loc>{{ site.url }}/{{ cat_slug | lower | replace(' ', '-') }}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  {% endfor %}
+  {% for article in articles %}
+  <url>
+    <loc>{{ site.url }}/{{ article.slug }}/</loc>
+    <lastmod>{{ article.date }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  {% endfor %}
+</urlset>

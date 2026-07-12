@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Home | {{ site.name }}{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <h1>Optimize Your LinkedIn for Top Tech Roles</h1>
+        <p class="hero-subtitle">Expert strategies for software engineers, data scientists, and product managers to stand out to US recruiters and land dream jobs.</p>
+        <a href="/profile-optimization/" class="btn btn-primary btn-large">Start Optimizing</a>
+    </div>
+</div>
+
+<div class="container section">
+    <!-- AdSense: Above the Fold -->
+    <div class="ad-slot ad-above-fold">
+        <p class="ad-label">Advertisement</p>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+</div>
+
+<div class="container layout-with-sidebar">
+    <div class="main-content">
+        <h2>Latest Articles</h2>
+        <div class="article-grid">
+            {% for article in articles[:10] %}
+            <article class="card article-card">
+                <div class="card-content">
+                    <span class="category-tag">{{ article.category }}</span>
+                    <h3><a href="/{{ article.slug }}/">{{ article.title }}</a></h3>
+                    <p>{{ article.description }}</p>
+                    <a href="/{{ article.slug }}/" class="read-more">Read Full Guide &rarr;</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    <aside class="sidebar">
+        <!-- AdSense: Sticky Sidebar -->
+        <div class="ad-slot ad-sidebar sticky">
+            <p class="ad-label">Advertisement</p>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </aside>
+</div>
+{% endblock %}

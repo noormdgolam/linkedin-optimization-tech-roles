@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}About Us | {{ site.name }}{% endblock %}
+
+{% block content %}
+<div class="container layout-with-sidebar section page-content">
+    <div class="main-content">
+        <h1>About Us</h1>
+        <p>Welcome to <strong>{{ site.name }}</strong>.</p>
+        <p>We are a dedicated team of tech industry veterans, former recruiters, and career coaches who understand what it takes to stand out in the competitive US job market. Our mission is to provide you with actionable, data-driven strategies to optimize your LinkedIn profile and land your dream tech role.</p>
+        
+        <h2>Our Expertise</h2>
+        <p>With decades of combined experience in technical recruitment for software engineering, data science, and product management, we know exactly what hiring managers are looking for. We translate that insider knowledge into practical tips you can use today.</p>
+        
+        <h2>E-E-A-T Commitment</h2>
+        <p>We believe in Experience, Expertise, Authoritativeness, and Trustworthiness. Every article published on our site is written or reviewed by an industry expert, ensuring you receive the highest quality advice.</p>
+    </div>
+    
+    <aside class="sidebar">
+        <!-- AdSense: Sticky Sidebar -->
+        <div class="ad-slot ad-sidebar sticky">
+            <p class="ad-label">Advertisement</p>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </aside>
+</div>
+{% endblock %}
