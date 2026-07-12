@@ -22,7 +22,7 @@ pillar_titles = [
 
 categories = [
     "Profile Optimization", "Profile Optimization", "Profile Optimization", 
-    "Networking", "Portfolio & Projects", "Profile Optimization", 
+    "Networking", "Portfolio and Projects", "Profile Optimization", 
     "Job Search", "Personal Branding", "Networking", "Job Search"
 ]
 
