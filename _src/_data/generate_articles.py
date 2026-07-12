@@ -27,7 +27,7 @@ categories = [
 
 for i in range(10):
     title = pillar_titles[i]
-    slug = title.lower().replace(' ', '-').replace("'", "").replace(',', "").replace(":", "")
+    slug = title.lower().replace(' ', '-').replace("'", "").replace(',', "")
     articles.append({
         "title": title,
         "slug": slug,
